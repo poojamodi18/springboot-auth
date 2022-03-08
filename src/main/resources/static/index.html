@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Springboot oAuth</title>
+    <base href="/"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>Login:</h1>
+<div class="container unauthenticated">
+    via: Github<a href="/oauth2/authorization/github">Click here.</a>
+</div>
+<div class="container authenticated" style="display:none">
+    logged in as: <span id="user"></span>
+    <span id="id"></span>
+    <form method="post" id="form">
+        <input type="submit" value="get">
+    </form>
+    <div>
+        <button onclick="logout()" class="btn btn-primary">Logout</button>
+    </div>
+</div>
+<script src="/webjars/js-cookie/js.cookie.js"></script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        beforeSend : function(xhr, settings){
+            if(settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE'){
+                if(!(/^http.*/.test(settings.url) || /^https.*/.test(settings.url))){
+                    xhr.setRequestHeader("X-XSRF-TOKEN",Cookies.get("XSRF-TOKEN"));
+                }
+            }
+        }
+    });
+    $.get("/user",function(data){
+        $("#user").html(data.name);
+        $("#id").html(data.id);
+        $("#form").attr("action","https://github.com/login/oauth/access_token?client_id=a444a6362590e8d6ae02&client_secret=ebaa28778d6eb85c7dc3b39e5397b474e494caa7&code="+data.id);
+        $(".unauthenticated").hide()
+        $(".authenticated").show()
+        }
+    );
+    var logout = function(){
+        $.post("/logout",function(){
+            $("user").html('');
+            $(".unauthenticated").show()
+            $(".authenticated").hide()
+        })
+        return true;
+    }
+</script>
+</body>
+</html>
