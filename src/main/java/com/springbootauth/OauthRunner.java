@@ -13,9 +13,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -56,6 +54,19 @@ public class OauthRunner extends WebSecurityConfigurerAdapter {
     @RequestMapping("/done")
     public void getdone(){
         System.out.println("get called");
+    }
+
+
+    @GetMapping("/login/oauth2/code/github")
+    public void codevalue(@PathVariable String code, @PathVariable String state){
+        System.out.println("Code : "+code);
+        System.out.println("State : "+state);
+    }
+
+    @PostMapping("/login/oauth2/code/github")
+    public void codeVal(@PathVariable String code, @PathVariable String state){
+        System.out.println("Code : "+code);
+        System.out.println("State : "+state);
     }
 
     @Override

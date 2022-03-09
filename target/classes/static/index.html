@@ -36,6 +36,8 @@
         }
     });
     $.get("/user",function(data){
+        var CookieValue=Cookies.get('XSRF-TOKEN')
+        console.log(CookieValue);
         $("#user").html(data.name);
         $("#id").html(data.id);
         $("#form").attr("action","https://github.com/login/oauth/access_token?client_id=a444a6362590e8d6ae02&client_secret=ebaa28778d6eb85c7dc3b39e5397b474e494caa7&code="+data.id);
