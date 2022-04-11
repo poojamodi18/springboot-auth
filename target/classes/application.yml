@@ -4,7 +4,7 @@ spring:
       client:
         registration:
           github:
-            client-id: a444a6362590e8d6ae02
-            client-secret: ebaa28778d6eb85c7dc3b39e5397b474e494caa7
+            client-id: 367e3d5858dc10db2023
+            client-secret: a7a0364fc3f9f23316d40940342103bf3b4db0ab
             redirect_uri: http://localhost:8080/login/oauth2/code/github
             scope: user

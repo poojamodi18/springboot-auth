@@ -16,7 +16,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
 @SpringBootApplication
@@ -36,7 +35,7 @@ public class OauthRunner extends WebSecurityConfigurerAdapter {
         OAuth2AuthenticationToken oauthToken =
                 (OAuth2AuthenticationToken) authentication;
 
-        System.out.println(oauthToken);
+        System.out.println("OAuth Token: "+oauthToken);
 
 
         Map<String, Object> list = principal.getAttributes();
